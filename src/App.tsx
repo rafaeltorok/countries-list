@@ -3,11 +3,13 @@ import axios from 'axios';
 import { Routes, Route, useLocation, useSearchParams } from 'react-router';
 
 // Components
+import Header from './components/Header';
 import Container from './components/Container';
 import CountryData from './components/CountryData';
+import Footer from './components/Footer';
 
 // CSS styles
-import './App.css';
+import './styles/App.css';
 
 // TypeScript types
 import type { Country } from './types/types';
@@ -69,11 +71,17 @@ export default function App() {
   }, [location]);
 
   return (
-    <>
-      <Routes>
-        <Route path='/' element={<Container countries={countriesFound} />} />
-        <Route path='/:name' element={<CountryData country={selectedCountry} />} />
-      </Routes>
-    </>
+    <div className='page-container'>
+      <Header />
+
+      <div className='main-page-content'>
+        <Routes>
+          <Route path='/' element={<Container countries={countriesFound} />} />
+          <Route path='/:name' element={<CountryData country={selectedCountry} />} />
+        </Routes>
+      </div>
+
+      <Footer />
+    </div>
   );
 }
