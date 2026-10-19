@@ -3,12 +3,16 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  background-color: rgba(0, 0, 0, 0.65);
-  min-width: 350px;
-  width: 90%;
+  background-color: rgba(0, 0, 0, 0.35);
+  min-width: 300px;
+  width: 100%;
   max-width: 750px;
   min-height: 100vh;
   text-align: center;
+
+  @media (max-width: 640px) {
+    width: 95%;
+  }
 }
 
 .header {

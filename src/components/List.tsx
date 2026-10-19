@@ -11,7 +11,7 @@ interface ListProps {
 
 export default function List({ countries }: ListProps) {
   return (
-    <ul className="countries-list">
+    <div className="countries-list">
       {countries.map((country) => (
         <Item
           key={country.name.common}
@@ -20,6 +20,6 @@ export default function List({ countries }: ListProps) {
           url={country.url}
         />
       ))}
-    </ul>
+    </div>
   );
 }

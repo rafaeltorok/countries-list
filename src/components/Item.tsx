@@ -8,10 +8,8 @@ interface ItemProps {
 
 export default function Item({ countryName, flag, url }: ItemProps) {
   return (
-    <li>
-      <Link to={`${url}`}>
-        {flag} {countryName}
-      </Link>
-    </li>
+    <Link to={`${url}`}>
+      {flag} {countryName}
+    </Link>
   );
 }
