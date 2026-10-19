@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 
+import "../styles/CountryData.css";
+
 // TypeScript types
 import type { Country } from "../types/types";
 
@@ -41,7 +43,7 @@ export default function CountryData({ country }: CountryDataProps) {
 				})}
 			</ul>
 
-			<Link to={"/"}>Return</Link>
+			<Link to={"/"} className="return-button">Return</Link>
 		</div>
 	);
 }

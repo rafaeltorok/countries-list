@@ -1,3 +1,5 @@
+import "../styles/Notification.css";
+
 interface NotificationProps {
 	listSize: number;
 	searchTerm: string;

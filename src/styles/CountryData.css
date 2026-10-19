@@ -1,7 +1,8 @@
 .country-data {
   min-width: 350px;
   max-width: 400px;
-  width: 90%;
+  margin: 1.5rem auto;
+  line-height: 2rem;
 }
 
 .country-name {
@@ -14,10 +15,8 @@
   border-style: groove;
   border-radius: 0.5rem;
   padding: 0.75rem;
-  margin-top: 1rem;
 }
 
-.countries-list,
 .languages-list {
   text-align: left;
   margin: 0 auto;
@@ -32,19 +31,14 @@
   max-width: 90%;
 }
 
-button {
-  background-color: black;
-  color: white;
-  padding: 0.2rem;
-  border: 2px solid gray;
-  border-style: outset;
-}
-
-button:active {
-  border-style: inset;
-  color: #505050;
-}
-
 .no-wrap {
   white-space: nowrap;
+}
+
+.return-button {
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
 }

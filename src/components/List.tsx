@@ -1,5 +1,7 @@
 import Item from "./Item";
 
+import "../styles/List.css";
+
 // TypeScript types
 import type { Country } from "../types/types";
 

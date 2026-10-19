@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router";
+import "../styles/Container.css";
 
 // Components
 import List from "./List";
@@ -25,7 +26,7 @@ export default function Container({ countries }: ContainerProps) {
 
   return (
     <div>
-      <div>
+      <div className="search-container">
         <label htmlFor='search-field'>Search country: </label>
         <input
           type='search'
