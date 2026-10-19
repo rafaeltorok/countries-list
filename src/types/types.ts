@@ -22,7 +22,7 @@ interface Currency {
   [key: string]: {
     name: string;
     symbol: string;
-  }
+  };
 }
 
 interface Language {

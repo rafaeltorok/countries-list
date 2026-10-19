@@ -1,24 +1,26 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Routes, Route, useLocation, useSearchParams } from 'react-router';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Routes, Route, useLocation, useSearchParams } from "react-router";
 
 // Components
-import Header from './components/Header';
-import Container from './components/Container';
-import CountryData from './components/CountryData';
-import Footer from './components/Footer';
+import Header from "./components/Header";
+import Container from "./components/Container";
+import CountryData from "./components/CountryData";
+import Footer from "./components/Footer";
 
 // CSS styles
-import './styles/App.css';
+import "./styles/App.css";
 
 // TypeScript types
-import type { Country } from './types/types';
+import type { Country } from "./types/types";
 
 // Main component
 export default function App() {
   const [countriesList, setCountriesList] = useState<Country[]>([]);
   const [countriesFound, setCountriesFound] = useState<Country[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(undefined);
+  const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(
+    undefined,
+  );
 
   // React Router
   const location = useLocation();
@@ -28,12 +30,14 @@ export default function App() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`https://studies.cs.helsinki.fi/restcountries/api/all`);
+        const response = await axios.get(
+          `https://studies.cs.helsinki.fi/restcountries/api/all`,
+        );
         const data = await response.data;
         const mappedData = data.map((country: Country) => {
           return {
             ...country,
-            url: `/${country.name.common.toLowerCase().replace(/\s+/g, '-')}`,
+            url: `/${country.name.common.toLowerCase().replace(/\s+/g, "-")}`,
           };
         });
         setCountriesList(mappedData);
@@ -50,10 +54,8 @@ export default function App() {
 
     if (searchTerm) {
       // Filter the countries list based on the user search term
-      const filteredCountries = (
-        countriesList.filter(
-          c => c.name.common.toLowerCase().includes(searchTerm.toLowerCase()
-        ))
+      const filteredCountries = countriesList.filter((c) =>
+        c.name.common.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setCountriesFound(filteredCountries);
       setSearchParams({ search: searchTerm });
@@ -66,18 +68,23 @@ export default function App() {
   // Handle matching the URL path to a specific country data
   useEffect(() => {
     if (location.pathname) {
-      setSelectedCountry(countriesFound.find((c) => c.url === location.pathname));
+      setSelectedCountry(
+        countriesFound.find((c) => c.url === location.pathname),
+      );
     }
   }, [location]);
 
   return (
-    <div className='page-container'>
+    <div className="page-container">
       <Header />
 
-      <div className='main-page-content'>
+      <div className="main-page-content">
         <Routes>
-          <Route path='/' element={<Container countries={countriesFound} />} />
-          <Route path='/:name' element={<CountryData country={selectedCountry} />} />
+          <Route path="/" element={<Container countries={countriesFound} />} />
+          <Route
+            path="/:name"
+            element={<CountryData country={selectedCountry} />}
+          />
         </Routes>
       </div>
 

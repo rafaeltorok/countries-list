@@ -4,9 +4,7 @@ export default function Header() {
   return (
     <div className="header">
       <h1>
-        <Link to={"/"}>
-          Countries List
-        </Link>
+        <Link to={"/"}>Countries List</Link>
       </h1>
     </div>
   );

@@ -20,18 +20,18 @@ export default function Container({ countries }: ContainerProps) {
     const handler = setTimeout(() => {
       setSearchParams({ search: term });
     }, 300);
-  
+
     return () => clearTimeout(handler);
   };
 
   return (
     <div>
       <div className="search-container">
-        <label htmlFor='search-field'>Search country: </label>
+        <label htmlFor="search-field">Search country: </label>
         <input
-          type='search'
-          id='search-field'
-          name='search-field'
+          type="search"
+          id="search-field"
+          name="search-field"
           defaultValue={searchParams.get("search") || ""}
           onChange={(e) => handleSearchCountry(e.target.value)}
         />
@@ -41,7 +41,10 @@ export default function Container({ countries }: ContainerProps) {
       {countries.length > 0 && countries.length <= 10 ? (
         <List countries={countries} />
       ) : (
-        <Notification listSize={countries.length} searchTerm={searchParams.get("search") || ""} />
+        <Notification
+          listSize={countries.length}
+          searchTerm={searchParams.get("search") || ""}
+        />
       )}
     </div>
   );
