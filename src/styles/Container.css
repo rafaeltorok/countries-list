@@ -1,0 +1,14 @@
+.search-container {
+  padding-top: 1rem;
+}
+
+.search-container label {
+  font-weight: bold;
+}
+
+.search-container input {
+  color: white;
+  background-color: black;
+  border: 1px solid gray;
+  padding: 0.25rem;
+}

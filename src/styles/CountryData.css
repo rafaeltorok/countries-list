@@ -1,0 +1,73 @@
+.country-data-wrapper {
+  padding: 0 0.5rem;
+  min-width: 300px;
+  max-width: 400px;
+  margin-top: 1.5rem;
+  line-height: 2rem;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5) 25%,
+    rgba(0, 0, 0, 0.35) 70%,
+    transparent 100%
+  );
+  border-radius: 1rem;
+  padding-bottom: 1rem;
+
+  @media (max-width: 640px) {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.25) 25%,
+      rgba(0, 0, 0, 0.25) 70%,
+      transparent 100%
+    );
+  }
+}
+
+.country-name {
+  background-color: #151515;
+  font-size: 2.5rem;
+  font-weight: bold;
+  border: 2px solid black;
+  border-style: groove;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.languages-list {
+  text-align: left;
+  margin: 0 auto;
+}
+
+.languages-list {
+  max-width: 200px;
+}
+
+.country-flag {
+  max-width: 90%;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.return-button {
+  margin: 0 auto;
+  display: block;
+  width: 95%;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 0.25rem 0;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.return-button:hover {
+  background-color: rgba(35, 35, 35, 0.75);
+  color: #505050;
+}
+
+.return-button:active {
+  background-color: rgba(50, 50, 50, 0.75);
+  color: black;
+}
