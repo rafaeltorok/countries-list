@@ -1,14 +1,23 @@
+import Item from "./Item";
+
+// TypeScript types
+import type { Country } from "../types/types";
+
 interface ListProps {
-	countryName: string;
-	listSize: number;
-	handleButtonClick: () => void;
-	flag: string;
+	countries: Country[];
 }
 
-export default function List({ countryName, listSize, handleButtonClick, flag }: ListProps) {
-	if (listSize > 1) {
-		return (
-			<li>{flag} {countryName} <button onClick={handleButtonClick}>show</button></li>
-		);
-	}
+export default function List({ countries }: ListProps) {
+	return (
+		<ul className='countries-list'>
+      {countries.map(country => (
+        <Item
+          key={country.name.common} 
+          countryName={country.name.common} 
+          flag={country.flag}
+					url={country.url}
+        />
+      ))}
+    </ul>
+	)
 }
