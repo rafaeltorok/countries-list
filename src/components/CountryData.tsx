@@ -1,10 +1,17 @@
+import { Link } from "react-router";
+
+// TypeScript types
 import type { Country } from "../types/types";
 
 interface CountryDataProps {
-	country: Country;
+	country: Country | undefined;
 }
 
 export default function CountryData({ country }: CountryDataProps) {
+	if (!country) {
+		return <h2>No data available</h2>;
+	}
+
 	return (
 		<div className="country-data">
 			<div className="country-name">{country.name.common.toUpperCase()}</div>
@@ -33,6 +40,8 @@ export default function CountryData({ country }: CountryDataProps) {
 					return <li key={key}>{value}</li>
 				})}
 			</ul>
+
+			<Link to={"/"}>Return</Link>
 		</div>
 	);
 }

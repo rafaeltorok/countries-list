@@ -15,6 +15,7 @@ export interface Country {
   borders: string[];
   languages: Language;
   flag: string;
+  url: string;
 }
 
 interface Currency {

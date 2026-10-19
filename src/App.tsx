@@ -1,87 +1,79 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Routes, Route, useLocation, useSearchParams } from 'react-router';
 
-import List from './components/List';
+// Components
+import Container from './components/Container';
 import CountryData from './components/CountryData';
-import Notification from './components/Notification';
 
+// CSS styles
 import './App.css';
 
+// TypeScript types
 import type { Country } from './types/types';
 
+// Main component
 export default function App() {
   const [countriesList, setCountriesList] = useState<Country[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [countriesFound, setCountriesFound] = useState<Country[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<Country | undefined>(undefined);
+
+  // React Router
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // Fetch all available countries from the API server
   useEffect(() => {
-    axios.get(`https://studies.cs.helsinki.fi/restcountries/api/all`)
-      .then(response => setCountriesList(response.data))
-      .catch(error => console.error(error));
+    async function getData() {
+      try {
+        const response = await axios.get(`https://studies.cs.helsinki.fi/restcountries/api/all`);
+        const data = await response.data;
+        const mappedData = data.map((country: Country) => {
+          return {
+            ...country,
+            url: `/${country.name.common.toLowerCase().replace(/\s+/g, '-')}`,
+          };
+        });
+        setCountriesList(mappedData);
+      } catch (err: unknown) {
+        console.error(err);
+      }
+    }
+    getData();
   }, []);
 
   // Update the list of countries found when a user inputs a search term
   useEffect(() => {
+    const searchTerm = searchParams.get("search");
+
     if (searchTerm) {
+      // Filter the countries list based on the user search term
       const filteredCountries = (
         countriesList.filter(
           c => c.name.common.toLowerCase().includes(searchTerm.toLowerCase()
         ))
       );
       setCountriesFound(filteredCountries);
+      setSearchParams({ search: searchTerm });
     } else {
+      // Empty the array when there is no search term
       setCountriesFound([]);
     }
-  }, [searchTerm]);
+  }, [countriesList, searchParams]);
 
-  // Add a delay of 500ms between the user typing and updating the page
-  const handleSearchCountry = (term: string) => {
-    const handler = setTimeout(() => {
-      setSearchTerm(term);
-    }, 300);
-  
-    return () => clearTimeout(handler);
-  };
-
-  const handleButtonClick = (country: Country) => {
-    setCountriesFound([country]);
-  }
+  // Handle matching the URL path to a specific country data
+  useEffect(() => {
+    if (location.pathname) {
+      setSelectedCountry(countriesFound.find((c) => c.url === location.pathname));
+    }
+  }, [location]);
 
   return (
     <>
-      <div>
-        <label htmlFor='search-field'>Search country: </label>
-        <input
-          type='search'
-          id='search-field'
-          name='search-field'
-          onChange={(e) => handleSearchCountry(e.target.value)}
-        />
-      </div>
-      
-      {/* Handle displaying the Countries list when there is a search term available */}
-      {countriesFound.length > 0 && countriesFound.length <= 10 ? (
-        <>
-          {countriesFound.length > 1 ? (
-            <ul className='countries-list'>
-              {countriesFound.map(country => (
-                <List 
-                  key={country.name.common} 
-                  countryName={country.name.common} 
-                  listSize={countriesFound.length}
-                  handleButtonClick={() => handleButtonClick(country)}
-                  flag={country.flag}
-                />
-              ))}
-            </ul>
-          ) : (
-            <CountryData country={countriesFound[0]} />
-          )}
-        </>
-      ) : (
-        <Notification listSize={countriesFound.length} searchTerm={searchTerm} />
-      )}
+      <Routes>
+        <Route path='/' element={<Container countries={countriesFound} />} />
+        <Route path='/:name' element={<CountryData country={selectedCountry} />} />
+      </Routes>
     </>
   );
 }
