@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Context
 import useCountryContext from "../hooks/useCountryContext";
@@ -7,7 +7,6 @@ import useCountryContext from "../hooks/useCountryContext";
 import "../styles/CountryData.css";
 
 export default function CountryData() {
-	const [loading, setLoading] = useState(true);
 	const { countriesList, selectedCountry, setSelectedCountry } = useCountryContext();
 	const location = useLocation();
 
@@ -15,18 +14,10 @@ export default function CountryData() {
   useEffect(() => {
     if (location.pathname) {
       setSelectedCountry(
-        countriesList.find((c) => c.url === location.pathname),
+        countriesList.find((c) => c.url === decodeURIComponent(location.pathname)),
       );
     }
-		if (selectedCountry) {
-			setLoading(false);
-		}
-  }, [location, countriesList, selectedCountry, setSelectedCountry, setLoading]);
-
-	// Loading screen
-	if (loading) {
-		return <h2>Loading information, please wait...</h2>;
-	}
+  }, [location, countriesList, selectedCountry, setSelectedCountry]);
 
 	// Error screen
   if (!selectedCountry) {
