@@ -2,7 +2,7 @@ import "../styles/Notification.css";
 
 interface NotificationProps {
   listSize: number;
-  searchTerm: string;
+  searchTerm: string | null;
 }
 
 export default function Notification({
@@ -11,7 +11,7 @@ export default function Notification({
 }: NotificationProps) {
   return (
     <div id="warning-message">
-      {searchTerm && listSize > 0 && (
+      {searchTerm && listSize > 10 && (
         <h2>Too many matches, please be more specific</h2>
       )}
       {searchTerm && listSize === 0 && <h2>No countries were found</h2>}

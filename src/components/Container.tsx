@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router";
-import "../styles/Container.css";
 
 // Components
 import List from "./List";
@@ -12,10 +11,19 @@ interface ContainerProps {
   countries: Country[];
 }
 
+import "../styles/Container.css";
+
 export default function Container({ countries }: ContainerProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Add a delay of 500ms between the user typing and updating the page
+  // Filter the countries list based on the user search term
+  const filteredCountries = countries.filter((c) =>
+    c.name.common
+      .toLowerCase()
+      .includes((searchParams.get("search") || "").toLowerCase()),
+  );
+
+  // Add a delay of 300ms between the user typing and updating the page
   const handleSearchCountry = (term: string) => {
     const handler = setTimeout(() => {
       setSearchParams({ search: term });
@@ -38,12 +46,12 @@ export default function Container({ countries }: ContainerProps) {
       </div>
 
       {/* Handle displaying the Countries list when there is a search term available */}
-      {countries.length > 0 && countries.length <= 10 ? (
-        <List countries={countries} />
+      {filteredCountries.length > 0 && filteredCountries.length <= 10 ? (
+        <List countries={filteredCountries} />
       ) : (
         <Notification
-          listSize={countries.length}
-          searchTerm={searchParams.get("search") || ""}
+          listSize={filteredCountries.length}
+          searchTerm={searchParams.get("search")}
         />
       )}
     </div>

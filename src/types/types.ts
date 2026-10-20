@@ -32,5 +32,5 @@ interface Language {
 export type CountryContextType = {
   countriesList: Country[];
   selectedCountry: Country | undefined;
-  setSelectedCountry: (country: Country) => void;
+  setSelectedCountry: (country: Country | undefined) => void;
 };
