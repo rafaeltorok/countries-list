@@ -28,3 +28,9 @@ interface Currency {
 interface Language {
   [key: string]: string;
 }
+
+export type CountryContextType = {
+  countriesList: Country[];
+  selectedCountry: Country | undefined;
+  setSelectedCountry: (country: Country) => void;
+};
