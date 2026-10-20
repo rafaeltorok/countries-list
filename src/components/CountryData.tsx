@@ -34,6 +34,8 @@ export default function CountryData() {
           {selectedCountry.name.common.toUpperCase()}
         </div>
         <br />
+
+        {/* Flag */}
         <div>
           <img
             src={selectedCountry.flags.svg}
@@ -41,20 +43,43 @@ export default function CountryData() {
             className="country-flag"
           />
         </div>
-        <p>
-          Capital(s): <strong>{selectedCountry.capital.join(", ")}</strong>
-        </p>
-        <p>
-          Population:{" "}
-          <strong>{selectedCountry.population.toLocaleString("de-DE")}</strong>
-        </p>
-        <p>
-          Area: <strong>{selectedCountry.area.toLocaleString("de-DE")}</strong>{" "}
-          km²
-        </p>
-        <p>
-          Currency:
-          <strong>
+
+        {/* Capital(s) */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Capital(s):
+          </div>
+          <div className="row-data">
+            {selectedCountry.capital.join(", ")}
+          </div>
+        </div>
+
+        {/* Population */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Population:{" "}
+          </div>
+          <div className="row-data">
+            {selectedCountry.population.toLocaleString("de-DE")}
+          </div>
+        </div>
+
+        {/* Area */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Area:
+          </div>
+          <div className="row-data">
+            {selectedCountry.area.toLocaleString("de-DE")} km²
+          </div>
+        </div>
+
+        {/* Currency */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Currency:
+          </div>
+          <div className="row-data">
             &nbsp;
             {
               selectedCountry.currencies[
@@ -70,32 +95,57 @@ export default function CountryData() {
               }
               )
             </span>
-          </strong>
-        </p>
-        <p>
-          Region: <strong>{selectedCountry.region}</strong>
-        </p>
-        <p>
-          Subregion: <strong>{selectedCountry.subregion}</strong>
-        </p>
-        <p>
-          Borders:{" "}
-          <strong>
+          </div>
+        </div>
+
+        {/* Region (Continent) */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Region:
+          </div>
+          <div className="row-data">
+            {selectedCountry.region}
+          </div>
+        </div>
+
+        {/* Subregion (Continent subregion) */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Subregion:
+          </div>
+          <div className="row-data">
+            {selectedCountry.subregion}
+          </div>
+        </div>
+
+        {/* Borders (Countries who share their borders with) */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Borders:
+          </div>
+          <div className="row-data">
             {selectedCountry.borders?.length
               ? selectedCountry.borders.join(", ")
               : "None"}
-          </strong>
-        </p>
-        <p>
-          <strong>Languages:</strong>
-        </p>
-        <ul className="languages-list">
-          {Object.entries(selectedCountry.languages).map(([key, value]) => {
-            return <li key={key}>{value}</li>;
-          })}
-        </ul>
+          </div>
+        </div>
+
+        {/* Official language(s) */}
+        <div className="country-data-row">
+          <div className="row-label">
+            Languages:
+          </div>
+          <div className="row-data">
+            <ul className="languages-list">
+              {Object.entries(selectedCountry.languages).map(([key, value]) => {
+                return <li key={key}>{value}</li>;
+              })}
+            </ul>
+          </div>
+        </div>
       </div>
 
+      {/* Return to the main page button */}
       <Link to={"/"} className="return-button">
         Return
       </Link>
