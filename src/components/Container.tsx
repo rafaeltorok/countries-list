@@ -18,7 +18,9 @@ export default function Container({ countries }: ContainerProps) {
 
   // Filter the countries list based on the user search term
   const filteredCountries = countries.filter((c) =>
-    c.name.common.toLowerCase().includes((searchParams.get("search") || "").toLowerCase()),
+    c.name.common
+      .toLowerCase()
+      .includes((searchParams.get("search") || "").toLowerCase()),
   );
 
   // Add a delay of 300ms between the user typing and updating the page

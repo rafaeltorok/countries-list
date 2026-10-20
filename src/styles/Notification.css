@@ -7,7 +7,7 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
   margin: 1rem auto;
-  
+
   @media (max-width: 640px) {
     font-size: 20px;
   }

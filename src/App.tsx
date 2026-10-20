@@ -45,21 +45,20 @@ export default function App() {
   }, []);
 
   return (
-    <CountryContext.Provider value={{
-      countriesList,
-      selectedCountry,
-      setSelectedCountry,
-    }}>
+    <CountryContext.Provider
+      value={{
+        countriesList,
+        selectedCountry,
+        setSelectedCountry,
+      }}
+    >
       <div className="page-container">
         <Header />
 
         <div className="main-page-content">
           <Routes>
             <Route path="/" element={<Container countries={countriesList} />} />
-            <Route
-              path="/:name"
-              element={<CountryData />}
-            />
+            <Route path="/:name" element={<CountryData />} />
           </Routes>
         </div>
 
