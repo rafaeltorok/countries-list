@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Routes, Route, useLocation, useSearchParams } from "react-router";
+import { Routes, Route, useSearchParams } from "react-router";
+import CountryContext from "./context/context";
 
 // Components
 import Header from "./components/Header";
@@ -23,7 +24,6 @@ export default function App() {
   );
 
   // React Router
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Fetch all available countries from the API server
@@ -63,32 +63,29 @@ export default function App() {
       // Empty the array when there is no search term
       setCountriesFound([]);
     }
-  }, [countriesList, searchParams]);
-
-  // Handle matching the URL path to a specific country data
-  useEffect(() => {
-    if (location.pathname) {
-      setSelectedCountry(
-        countriesFound.find((c) => c.url === location.pathname),
-      );
-    }
-  }, [location]);
+  }, [countriesList, searchParams, setSearchParams]);
 
   return (
-    <div className="page-container">
-      <Header />
+    <CountryContext.Provider value={{
+      countriesList,
+      selectedCountry,
+      setSelectedCountry,
+    }}>
+      <div className="page-container">
+        <Header />
 
-      <div className="main-page-content">
-        <Routes>
-          <Route path="/" element={<Container countries={countriesFound} />} />
-          <Route
-            path="/:name"
-            element={<CountryData country={selectedCountry} />}
-          />
-        </Routes>
+        <div className="main-page-content">
+          <Routes>
+            <Route path="/" element={<Container countries={countriesFound} />} />
+            <Route
+              path="/:name"
+              element={<CountryData />}
+            />
+          </Routes>
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+    </CountryContext.Provider>
   );
 }
